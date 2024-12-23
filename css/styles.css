@@ -1,0 +1,77 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+/* Header Section */
+header {
+    background-color: #f6a455;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+    header h1 {
+    color: #000;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f4d9d9;
+    padding: 1rem 0;
+    border-bottom: 2px solid #ccc;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #d9534f;
+}
+
+/* Section Styles */
+.section {
+    padding: 2rem;
+    text-align: center;
+}
+
+#portfolio .portfolio-box {
+    background-color: #fff;
+    margin: 1rem auto;
+    padding: 2rem;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e5e5;
+}
+
+.portfolio-title {
+    color: #d9534f;
+    margin-bottom: 1rem;
+}
+
+.portfolio-description {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+}

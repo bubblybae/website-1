@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Page Development</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles4.css">
+    <style>
+        /* Main Section */
+        main {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: lightyellow;
+        }
+
+        main h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        main p {
+            font-size: 18px;
+            color: #555;
+        }
+        
+        /* About Me Section */
+        .about-section {
+            background-color: lightgoldenrodyellow;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 20px auto;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+
+        .about-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            background-color: lightcoral;
+        }
+
+        /* Button Styles */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PERSONAL PAGE DEVELOPMENT</h1>
+    </header>
+    
+    <nav class="navbar">
+        <a href="index.html">Homepage</a>
+        <a href="biodata.html">My Biodata</a>
+        <a href="portfolio.html">My Portfolio</a>
+        <a href="video.html">My Video</a>
+        <a href="comment.html">Your Comment</a>
+    </nav>
+
+    <main>
+        <section class="about-section">
+            <h2>Your Comment</h2>
+            <textarea id="commentInput" cols="70" rows="15" placeholder="Write your comment here..."></textarea>
+            <button onclick="addComment()">Submit</button>
+			
+            <br><br><h2>Comments:</h2>
+            <select id="deleteDropdown">
+                <option value="" disabled selected>Select a comment</option>
+            </select>
+            <button onclick="deleteSelectedComment()">Delete</button>
+
+            <div id="commentsContainer"></div>
+        </section>
+    </main>
+
+    <script>
+        // Load comments from localStorage when the page loads
+        window.onload = function () {
+            const savedComments = JSON.parse(localStorage.getItem("comments")) || [];
+            savedComments.forEach((commentText, index) => {
+                addCommentToDOM(commentText, index);
+                addOptionToDropdown(commentText, index);
+            });
+        };
+
+        function addComment() {
+            const commentInput = document.getElementById("commentInput");
+
+            if (commentInput.value.trim() !== "") {
+                const commentText = commentInput.value;
+
+                // Save comment to localStorage
+                const savedComments = JSON.parse(localStorage.getItem("comments")) || [];
+                savedComments.push(commentText);
+                localStorage.setItem("comments", JSON.stringify(savedComments));
+
+                // Add comment to the DOM
+                addCommentToDOM(commentText, savedComments.length - 1);
+                addOptionToDropdown(commentText, savedComments.length - 1);
+
+                // Clear the input field
+                commentInput.value = "";
+            } else {
+                alert("Please write a comment.");
+            }
+        }
+
+        function addCommentToDOM(commentText, index) {
+            const commentsContainer = document.getElementById("commentsContainer");
+
+            // Create a comment div
+            const commentDiv = document.createElement("div");
+            commentDiv.setAttribute("data-index", index);
+
+            // Create a paragraph for the comment
+            const comment = document.createElement("p");
+            comment.textContent = commentText;
+
+            // Append elements to the comment div
+            commentDiv.appendChild(comment);
+
+            // Append comment div to the container
+            commentsContainer.appendChild(commentDiv);
+        }
+
+        function addOptionToDropdown(commentText, index) {
+            const dropdown = document.getElementById("deleteDropdown");
+
+            // Create a new option
+            const option = document.createElement("option");
+            option.value = index;
+            option.textContent = commentText;
+
+            // Add the option to the dropdown
+            dropdown.appendChild(option);
+        }
+
+        function deleteSelectedComment() {
+            const dropdown = document.getElementById("deleteDropdown");
+            const selectedIndex = dropdown.value;
+
+            if (selectedIndex === "") {
+                alert("Please select a comment to delete.");
+                return;
+            }
+
+            // Get comments from localStorage
+            let savedComments = JSON.parse(localStorage.getItem("comments")) || [];
+
+            // Remove the selected comment
+            savedComments.splice(selectedIndex, 1);
+            localStorage.setItem("comments", JSON.stringify(savedComments));
+
+            // Refresh the display
+            document.getElementById("commentsContainer").innerHTML = "";
+            dropdown.innerHTML = '<option value="" disabled selected>Select a comment</option>';
+
+            savedComments.forEach((commentText, newIndex) => {
+                addCommentToDOM(commentText, newIndex);
+                addOptionToDropdown(commentText, newIndex);
+            });
+        }
+    </script>
+</body>
+</html>

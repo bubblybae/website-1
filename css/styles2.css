@@ -1,0 +1,47 @@
+.portfolio-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e5e5;
+    margin: 2rem auto;
+    padding: 2rem;
+    max-width: 700px;
+}
+
+.portfolio-content {
+    flex: 1;
+    text-align: center;
+}
+
+button {
+    background-color: #d9534f;
+    border: none;
+    color: white;
+    padding: 1rem;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.prev {
+    left: -50px;
+}
+
+button.next {
+    right: -50px;
+}
+
+button i {
+    font-size: 1.5rem;
+}
+
+button:hover {
+    background-color: #c9302c;
+}
